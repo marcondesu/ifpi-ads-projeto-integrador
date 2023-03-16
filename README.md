@@ -1,5 +1,11 @@
 <h1 align="center"> STAGEO </h1>
 
+## 🔘 <a href="https://youtu.be/3IJawkk1tJE" align=center>Clique para conhecer os requisitos</a>
+
+<p align="center">
+  <img alt="Imagem do vídeo de apresentação dos requisitos" src=".github/STAGEO.png" width="100%">
+</p>
+
 ### 🤖🤖🤖 Equipe
 <ul>
     <li> <a href="https://github.com/cibellemc/">Cibelle Maciel da Costa</a></li>
