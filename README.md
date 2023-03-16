@@ -17,5 +17,5 @@
 <p>Automação do processo de controle de disponibilidade de estações no laboratório de Geoprocessamento do Campus Central.</p>
 
 ### 📝 Requisitos funcionais
-- Registro de empréstimos;
-- Controle de manutenções; 
+- Registro de empréstimos
+- Controle de manutenções 
