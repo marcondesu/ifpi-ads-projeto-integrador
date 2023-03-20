@@ -1,24 +1,27 @@
-- Nome do requisito (complexidade/prioridade/tipo de usuário)
-
-- Exibir estações (média / alta / autenticado e administrador)
+- Exibir estações
     Para o usuário, será possível ver nome, descrição e disponibilidade da estação.
     Já para o administrador, além dos atributos que o usuário tem permissão, terá acesso à necessidade de manutenção e tombo (código identificador) da estação.
 
-- Realizar solicitação de reserva (alta / alta / autenticado)
+- Realizar solicitação de reserva
     O usuário deverá ser capaz de solicitar uma reserva, podendo ela ser de uma ou várias estações.
 
-- Aceitar/recusar solicitação de reservar (média / média / administrador)
+- Aceitar/recusar solicitação de reservar
     O administrador do sistema será responsável por aceitar ou recusar solicitações feitas pelo usuário. Poderá verificar caso ele não realizou a devolução em reservas anteriores.
 
-- Emitir declaração (alta / alta / administrador)
+- Emitir declaração
     Caso a reserva seja aceita, o administrador poderá emitir a declaração.
 
-- Permanência de reservas (alta / alta / autenticado e administrador)
-    O sistema deverá armazenar o histórico de solicitações e reservas contendo as informações do usuário, estação(ões).
+- Permanência de reservas
+    O sistema deverá armazenar o histórico de solicitações e reservas contendo as informações do usuário, e da(s) estação(ões).
 
-- Manutenção preventiva (média / alta / administrador)
+- Manutenção preventiva
     O sistema deverá alertar o administrador quando alguma estação precisar ir à manutenção quando esta ficar indisponível, assim evitando maiores danos.
 
-- Cadastro de alunos e funcionários (média / alta / administrador)
+- Auto cadastro
+    Interessados podem se auto cadastrar na plataforma.
 
-- Cadastro de equipamentos (média / alta / administrador)
+- Cadastro de alunos e funcionários
+    O administrador, por meio do sistema, irá cadastrar os dados do solicitante.
+
+- Cadastro de equipamentos
+    O administrador, por meio do sistema, irá cadastrar os dados de equipamentos.
