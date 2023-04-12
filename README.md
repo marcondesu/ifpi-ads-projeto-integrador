@@ -6,6 +6,8 @@
   <img alt="Imagem da tabela de requisitos" src=".github/requisitos-tabela.jpg" width="80%">
 </p>
 
+## 🔘 <a href="https://youtu.be/3ipYwGouacE" align=center>Vídeo mostrando o protótipo do aplicativo do STAGEO usando o figma.</a>
+
 ### 🤖🤖🤖 Equipe
 <ul>
     <li> <a href="https://github.com/cibellemc/">Cibelle Maciel da Costa</a></li>
