@@ -6,6 +6,8 @@
   <img alt="Imagem da tabela de requisitos" src=".github/requisitos-tabela.jpg" width="80%">
 </p>
 
+### 📃 <a href="https://1drv.ms/w/s!AkAQG8uKndH5h22TfFR6dFLWUHNu?e=Ck60lC">Documento de requisitos</a>
+
 ### 🤖🤖🤖 Equipe
 <ul>
     <li> <a href="https://github.com/cibellemc/">Cibelle Maciel da Costa</a></li>
