@@ -2,7 +2,7 @@ import { Column, ManyToOne , Entity, PrimaryColumn } from "typeorm";
 import {Equipments} from "../../Equipments/entity/Equipments"
 
 @Entity ()
-export class Specimen {
+export class Exemplary {
     @PrimaryColumn({type:'varchar'})
     tombo:string;
 
@@ -13,4 +13,8 @@ export class Specimen {
     @Column()
     status:string;
 
+
+    @Column({nullable:false})
+    image:string;
+   
 }

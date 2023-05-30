@@ -1,3 +1,5 @@
+import { ILike } from "typeorm";
+import { Appknex } from "../../data-source";
 import { AppDataSource } from "../../data-source";
 import { Equipments } from "../entity/Equipments";
 import { Request, Response } from "express";
@@ -13,20 +15,28 @@ export const getEquipments = async (request:Request, response:Response) => {
 export const getEquipmentsById = async (request:Request, response:Response) => {
     const id  = request.params['id']
     const equipment = await AppDataSource.getRepository(Equipments).findOneBy({id})
-    if(equipment === null){
+    if(equipment.id === null){
         return response.status(404).json({message:"Equipamento não encontrado."})
     }
     return response.json(equipment)
 }
 
-export const getEquipmentsByName = async (request:Request, response:Response) => {
-    const nome  = request.params
-    const equipment =  await AppDataSource.getRepository(Equipments).createQueryBuilder('Equipments').where('Equipments.nome LIKE :nome', { nome: `%${nome}%` }).getMany()
-    if(equipment === null){
-        return response.status(404).json({message:"Equipamento não encontrado."})
+
+export const getEquipmentsByName = async (request: Request, response: Response) => {
+    const nome = request.params['nome'];
+    const equipmentRepository = AppDataSource.getRepository(Equipments);
+    const equipmentQuery = await equipmentRepository.find({
+      where: { nome: ILike(`%${nome}%`) },
+    });
+  
+    if (equipmentQuery.length === 0) {
+      return response.status(404).json({ message: "Equipamento não encontrado." });
     }
-    return response.json(equipment)
-}
+  
+    return response.json(equipmentQuery);
+  }
+
+
 
 export const saveEquipments = async (request:Request, response:Response) => {
     const equipments = await AppDataSource.getRepository(Equipments).save(request.body )

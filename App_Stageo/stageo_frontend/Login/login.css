@@ -1,0 +1,29 @@
+
+/* .stageo-box{
+    background-color: aqua;
+    font-size:1rem;
+    font-family:Arial, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    position:absolute;
+    top:50%;
+    left: 50%;
+    text-align: center;
+    width: 25%;
+    transform: translate(-50%,-50%);
+} */
+
+.login-box form input{
+    outline: none;
+    width: 90%;
+}
+.login-box .forgot-password{
+    padding: 3.0em;
+}
+
+.login-box form{
+    text-align:start;
+    padding: 2.0em;
+}
+
+.login-box .check-box{
+    text-align: center;
+}

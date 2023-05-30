@@ -2,7 +2,7 @@ import "reflect-metadata"
 import * as express from "express"
 import * as bodyParser from "body-parser"
 import routesEquipment from "./Equipments/routes/routesEquipments"
-import routesSpecimen from "./Categoria/routes/routesSpecimen"
+import routesExemplary from "./Exemplary/routes/routesExemplary"
 import { AppDataSource } from "./data-source"
 
 
@@ -18,5 +18,5 @@ AppDataSource.initialize().then(() => {
 
 app.use(bodyParser.json())
 app.use(routesEquipment)
-app.use(routesSpecimen)
+app.use(routesExemplary)
 app.listen(3333) 
