@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn, JoinColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Equipments {
@@ -11,8 +11,6 @@ export class Equipments {
     @Column()
     description:string;
     
-    @Column({nullable:false})
-    image:string;
     
     @CreateDateColumn()
     create_at:Date;
