@@ -29,6 +29,12 @@ export const getExemplaryByName = async (request:Request, response:Response) => 
     return response.json(exemplary)
 }
 
+
+export const saveExemplary = async (request:Request, response:Response) => {
+    const exemplary = await AppDataSource.getRepository(Exemplary).save(request.body )
+    response.json(exemplary)
+}
+
 export const deleteExemplary = async (request: Request, response: Response) => {
     const tombo = request.params['tombo']
     const exemplary = await AppDataSource.getRepository(Exemplary).delete({tombo})
