@@ -39,8 +39,8 @@ export const deleteExemplary = async (request: Request, response: Response) => {
     const tombo = request.params['tombo']
     const exemplary = await AppDataSource.getRepository(Exemplary).delete({tombo})
     if(exemplary.affected === 1) {
-        const equipmentDelete = await AppDataSource.getRepository(Exemplary).findOneBy({tombo})
-        return response.json(equipmentDelete,).status(200).json({message:"Equipamento removido."})
+        const exemplarDelete = await AppDataSource.getRepository(Exemplary).findOneBy({tombo})
+        return response.json(exemplarDelete,).status(200).json({message:"Exemplar removido."})
     } 
     return response.status(404).json({message:"Exemplar não encontrado"})
 };
