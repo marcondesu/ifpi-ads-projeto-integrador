@@ -31,12 +31,20 @@ export const saveReserve = async (request:Request, response:Response) => {
 
 export const deleteReserve = async (request: Request, response: Response) => {
     const id = request.params['id']
-    const equipments = await AppDataSource.getRepository(Reserve).delete({id})
-    if(equipments.affected === 1) {
-        const equipmentDelete = await AppDataSource.getRepository(Reserve).findOneBy({id})
-        return response.json(equipmentDelete,).status(200).json({message:"Reserva removida."})
+    const reserve = await AppDataSource.getRepository(Reserve).delete({id})
+    if(reserve.affected === 1) {
+        const reserveDelete = await AppDataSource.getRepository(Reserve).findOneBy({id})
+        return response.json(reserveDelete,).status(200).json({message:"Reserva removida."})
     } 
     return response.status(404).json({message:"Reserva não encontrada"})
 };
 
-    
+export const updateEquipments = async (request:Request, response:Response) => {
+    const id = request.params['id']
+    const reserve = await AppDataSource.getRepository(Reserve).update({id},request.body)
+    if(reserve.affected === 1) {
+        const reserveUpdate = await AppDataSource.getRepository(Reserve).findOneBy({id})
+        return response.json(reserveUpdate)
+    }
+    return response.status(404).json({message:"Reserva não encontrada."})
+}
