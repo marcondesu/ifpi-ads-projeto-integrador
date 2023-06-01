@@ -39,7 +39,7 @@ export const deleteReserve = async (request: Request, response: Response) => {
     return response.status(404).json({message:"Reserva não encontrada"})
 };
 
-export const updateEquipments = async (request:Request, response:Response) => {
+export const updateReserve = async (request:Request, response:Response) => {
     const id = request.params['id']
     const reserve = await AppDataSource.getRepository(Reserve).update({id},request.body)
     if(reserve.affected === 1) {
