@@ -1,5 +1,4 @@
 import { ILike } from "typeorm";
-import { Appknex } from "../../data-source";
 import { AppDataSource } from "../../data-source";
 import { Equipments } from "../entity/Equipments";
 import { Request, Response } from "express";

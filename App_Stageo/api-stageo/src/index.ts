@@ -1,6 +1,7 @@
 import "reflect-metadata"
 import * as express from "express"
 import * as bodyParser from "body-parser"
+import * as cors from "cors"
 import routesEquipment from "./Equipments/routes/routesEquipments"
 import routesExemplary from "./Exemplary/routes/routesExemplary"
 import { AppDataSource } from "./data-source"
@@ -16,6 +17,8 @@ AppDataSource.initialize().then(() => {
     console.error("Error during Data Source initialization", err)
 })
 
+
+app.use(cors)
 app.use(bodyParser.json())
 app.use(routesEquipment)
 app.use(routesExemplary)
