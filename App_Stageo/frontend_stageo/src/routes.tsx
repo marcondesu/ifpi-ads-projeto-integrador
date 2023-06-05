@@ -1,17 +1,15 @@
 import React from "react";
-import  {Routes, Route} from 'react-router-dom';
-import Home from "./pages/Home"
-import Equipments from "./pages/Equipments";
+import { Routes, Route } from 'react-router-dom';
+import Home from "./pages/Home";
+import Equipments from "./pages/Equipements/Equipments";
 
-
-const routes: React.FC = () => {
+const Router: React.FC = () => {
     return (
         <Routes>
-            <Route path="/" Component={Home}></Route>
-            <Route path="/Equipments" Component={Equipments}></Route>
+            <Route path="/" element={<Home />} />
+            <Route path="/Equipments" element={<Equipments />} />
         </Routes>
     );
 }
 
-
-export default routes;
+export default Router;
