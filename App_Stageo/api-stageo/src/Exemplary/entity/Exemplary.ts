@@ -11,8 +11,8 @@ export class Exemplary {
     equipments: Equipments;
     
 
-    @Column()
-    status:string;
+    // @Column()
+    // status:boolean;
 
 
     @Column({nullable:false})
