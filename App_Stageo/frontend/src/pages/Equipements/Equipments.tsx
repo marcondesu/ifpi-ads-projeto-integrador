@@ -8,7 +8,7 @@ import "./Equipments.css"
 
 
 interface IEquipment {
-  id: string;
+  id: number;
   nome: string;
   description: string;
   status:boolean;
@@ -45,6 +45,12 @@ const Equipments: React.FC = () => {
     history('/Cadastrar_equipamentos',{replace:false});
   }
 
+  function editEquipments(id:number){
+    history(`/Cadastrar_equipamentos/${id}}`,{replace:false});
+
+  }
+
+
   return (
     <div className="container">
       <br />
@@ -72,13 +78,14 @@ const Equipments: React.FC = () => {
               <td>{equipment.description}</td>
               <td>
               <Badge bg="warning">
+                  
                   {equipment.status? "Disponível":"Indisponível"}
               </Badge>
                 
               </td>
               <td>{formateDate(equipment.create_at)}</td>                 
               <td>
-                <Button size="sm">Editar</Button>{" "}
+                <Button size="sm" onClick={()=> editEquipments(equipment.id)}>Editar</Button>{" "}
                 <Button size="sm" variant="success">Reservar</Button>{" "}
                 <Button size="sm" variant="info">Visualizar</Button>{" "}
               </td>

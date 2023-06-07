@@ -1,12 +1,13 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import "./index.css"
+import { useParams } from "react-router";
 import api from "../../../services/api";
 
 
 interface IEquipment {
-    id:string;
+
     nome: string;
     description: string;
     status:boolean
@@ -16,13 +17,15 @@ interface IEquipment {
 
 
 const Equipments: React.FC = () => {
+    const params = useParams()
     const [model,setModel] = useState<IEquipment>({
-        id:"",
         nome:"",
         description: "",
         status:true
     })
-
+    useEffect(() => {
+        console.log(params)
+    },[params])
 
     function updateModel(e:ChangeEvent<HTMLInputElement>) {
         setModel({
@@ -30,6 +33,17 @@ const Equipments: React.FC = () => {
             [e.target.name]: e.target.value
         })
     }
+
+    const changeStatus = async (id: string, status: boolean) => {
+        try {
+          const response = await api.put(`/Equipments/${id}`, { status });
+          console.log(response);
+          // Atualize o estado ou realize qualquer ação necessária após a alteração do status
+        } catch (error) {
+          console.error(error);
+          // Trate o erro, se necessário
+        }
+    };
 
     async function onSubmit (e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault()
@@ -65,6 +79,17 @@ const Equipments: React.FC = () => {
                         onChange={(e:ChangeEvent<HTMLInputElement>) => updateModel(e)}
                     />
                 </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label>Status</Form.Label>
+                    <br />
+                    {/* <Button
+                        variant="dark"
+                        onClick={() => changeStatus(model.id, !model.status)}
+                        
+                        >
+                        Alterar Status
+                    </Button> */}
+                </Form.Group>
 
                 <Form.Group className="mb-3">
                 <Form.Label>Descrição</Form.Label>
@@ -77,7 +102,6 @@ const Equipments: React.FC = () => {
                 />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
                 </Form.Group>
                 <Button variant="dark" type="submit">
                     Salvar
