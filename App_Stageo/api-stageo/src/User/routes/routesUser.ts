@@ -1,14 +1,14 @@
 import { Router } from "express"
-import { getExemplary, getExemplaryByTombo, getExemplaryByName } from "../controller/UserController"
+import { deleteUser, getUser, getUserById, saveUser, updateUser } from "../controller/UserController"
 
 const routes = Router()
 
 
-routes.get('/Exemplary', getExemplary)
-routes.get('/Exemplary/:tombo', getExemplaryByTombo)
-routes.get('/Exemplary/:nome', getExemplaryByName)
-routes.post('/')
-routes.delete('/')
-routes.put('/')
+routes.get('/User', getUser)
+routes.get('/User/:id', getUserById)
+routes.get('/User/:nome')
+routes.post('/User', saveUser)
+routes.delete('/User',deleteUser)
+routes.put('/User',updateUser)
 
 export default routes;

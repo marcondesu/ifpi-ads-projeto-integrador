@@ -10,7 +10,9 @@ export class Equipments {
     
     @Column()
     description:string;
-    
+
+    @Column()
+    status:boolean;
     
     @CreateDateColumn()
     create_at:Date;

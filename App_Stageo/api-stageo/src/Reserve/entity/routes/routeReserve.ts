@@ -8,7 +8,8 @@ const routes = Router()
 routes.get('/Routes', getReserve)
 routes.get('/Routes/:id', getReserveById)
 routes.post('/Routes', saveReserve)
-routes.get('/Routes/:id', updateReserve)
-routes.get('/Routes/:id', deleteReserve)
+routes.put('/Routes/:id', updateReserve)
+routes.delete('/Routes/:id', deleteReserve)
+
 
 export default routes;
