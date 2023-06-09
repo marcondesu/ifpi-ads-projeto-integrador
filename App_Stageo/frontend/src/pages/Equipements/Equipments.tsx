@@ -8,7 +8,7 @@ import "./Equipments.css"
 
 
 interface IEquipment {
-  id: string;
+  id: number;
   nome: string;
   description: string;
   status:boolean;
@@ -21,6 +21,8 @@ interface IEquipment {
 const Equipments: React.FC = () => {
   const [equipments, setEquipments] = useState<IEquipment[]>([]);
   const history = useNavigate()
+
+
 
   useEffect(() => {
     loadEquipments();
@@ -44,12 +46,25 @@ const Equipments: React.FC = () => {
   function addEquipment(){
     history('/Cadastrar_equipamentos',{replace:false});
   }
+  
+  function updateEquipment(id:number){
+    history(`/Cadastrar_equipamentos/${id}`,{replace:false});
+
+  }
+
+  function viewEquipment(id:number){
+    history(`/Equipments/${id}`,{replace:false});
+
+  }
+
+  
 
   return (
     <div className="container">
       <br />
-      <div className="equipment-header" id="equipment-id-header">
+      <div className="equipment-header" >
         <h1>Lista de Equipamentos</h1>
+        
         <Button variant="dark" size="sm" onClick={addEquipment}>Adicionar Equipamento</Button>
       </div>
       <br />
@@ -76,11 +91,14 @@ const Equipments: React.FC = () => {
               </Badge>
                 
               </td>
-              <td>{formateDate(equipment.create_at)}</td>                 
+              <td>{formateDate(equipment.create_at)}</td> 
               <td>
-                <Button size="sm">Editar</Button>{" "}
+              <div className="btn-group" role="group" aria-label="Exemplo de botões separados">
+                <Button size="sm" onClick={() => updateEquipment(equipment.id)}>Editar</Button>{" "}
                 <Button size="sm" variant="success">Reservar</Button>{" "}
-                <Button size="sm" variant="info">Visualizar</Button>{" "}
+                <Button size="sm" variant="info" onClick={() => viewEquipment(equipment.id)}>Visualizar</Button>{" "}
+
+              </div>                
               </td>
             </tr>
           ))}

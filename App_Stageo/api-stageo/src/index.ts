@@ -5,7 +5,8 @@ import * as cors from "cors"
 import routesEquipment from "./Equipments/routes/routesEquipments"
 import routesExemplary from "./Exemplary/routes/routesExemplary"
 import { AppDataSource } from "./data-source"
-
+import * as swagguerUi from "swagger-ui-express"
+import * as swaggerDocument from "./swagger.json"
 
 const app = express()
 // const port = process.env.PORT || 3333
@@ -23,6 +24,7 @@ const corsOptions = {
     allowedHeaders: ["Content-Type", "Authorization"],
 };
 
+app.use("/api-docs",swagguerUi.serve, swagguerUi.setup(swaggerDocument))
 app.use(cors(corsOptions));
 app.use(bodyParser.json())
 app.use(routesEquipment)
