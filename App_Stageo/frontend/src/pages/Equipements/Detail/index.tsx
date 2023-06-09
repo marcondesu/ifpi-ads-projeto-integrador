@@ -19,6 +19,7 @@ const Detail: React.FC = () => {
     const [equipments, setEquipments] = useState<IEquipment>()
 
     useEffect(() => {
+        
         findEquipment();
     },[id])
 

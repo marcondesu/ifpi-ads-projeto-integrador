@@ -28,9 +28,6 @@ const Equipment: React.FC = () => {
     }
   }, [id]);
 
-  function back() {
-    history("/Equipments")
-}
   async function findEquipment(id: string) {
     try {
       const response = await api.get(`/Equipments/${id}`);
@@ -40,7 +37,6 @@ const Equipment: React.FC = () => {
       console.error("Failed to fetch equipment", error);
     }
   }
-
 
   function updateModel(e: ChangeEvent<HTMLInputElement>) {
     setModel({
@@ -69,12 +65,16 @@ const Equipment: React.FC = () => {
     }
   }
 
+  function back() {
+    history("/Equipments");
+  }
+
   return (
     <div className="container">
       <br />
       <div className="equipment-header">
         <h1>{id ? "Editar Equipamento" : "Novo Equipamento"}</h1>
-        <Button variant="dark" onClick={() => back()} size="sm">
+        <Button variant="dark" onClick={back} size="sm">
           Voltar
         </Button>
       </div>
@@ -87,7 +87,7 @@ const Equipment: React.FC = () => {
               type="text"
               name="nome"
               value={model.nome}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => updateModel(e)}
+              onChange={updateModel}
             />
           </Form.Group>
 
@@ -98,7 +98,7 @@ const Equipment: React.FC = () => {
               rows={3}
               name="description"
               value={model.description}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => updateModel(e)}
+              onChange={updateModel}
             />
           </Form.Group>
 
@@ -109,9 +109,8 @@ const Equipment: React.FC = () => {
               label="Disponível"
               name="status"
               checked={model.status}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => updateModel(e)}
+              onChange={updateModel}
             />
-
           </Form.Group>
 
           <Button variant="dark" type="submit">

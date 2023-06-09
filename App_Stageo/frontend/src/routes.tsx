@@ -13,7 +13,6 @@ const Router: React.FC = () => {
             <Route path="/Cadastrar_equipamentos" element={<EquipmentsForm />} />
             <Route path="/Cadastrar_equipamentos/:id" element={<EquipmentsForm />} />
             <Route path="/Equipments/:id" element={<EquipmentsDetail/>} />
-
         </Routes>
     );
 }

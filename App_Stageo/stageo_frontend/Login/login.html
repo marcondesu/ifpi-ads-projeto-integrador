@@ -1,31 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-     <div class="stageo-box">
-        <h1>STAGEO</h1>
-        <img src="img/icons8-drone-58.png" alt="">
-        <div class="login-box">
-            <form action="">
-                <h3>Login</h3>
-                <input type="text" id=""> <br><br>
-                <h3>Password</h3>
-                <input type="password" id="">
-            </form>
-            
-            <input type="checkbox" id="check-box">Lembrar-me
-            
-            
-            <a href="" class="forgot-password">Esqueceu a senha?</a>
-        
-            <button type="submit">Entrar</button>
+    
+    <!-- https://www.youtube.com/watch?v=69-WfrVBli8 -->
+    <!-- https://storyset.com/ -->
+    
+    <div class="main-login">
 
+        <div class="left-login">
+            <h1>Stageo<br>Gestão de equipamentos</h1>
+            <img src="drone.svg" alt="Três homens pilotando drones" class="left-login-image">
+        </div>
+
+        <div class="right-login">
+            <div class="card-login">
+                <h1>LOGIN</h1>
+                <div class="textfield">
+                    <input type="text" name="usuario" placeholder="Usuário">
+                </div>
+                <div class="textfield">
+                    <input type="password" name="senha" placeholder="Senha">
+                </div>
+                <button class="btn-login"><a href="../equipamentos/index.html">Login</a></button>
+            </div>
         </div>
     </div>
+    
 </body>
 </html>

@@ -59,6 +59,12 @@ const Equipments: React.FC = () => {
 
   
 
+  function editEquipments(id:number){
+    history(`/Cadastrar_equipamentos/${id}}`,{replace:false});
+
+  }
+
+
   return (
     <div className="container">
       <br />
@@ -87,6 +93,7 @@ const Equipments: React.FC = () => {
               <td>{equipment.description}</td>
               <td>
               <Badge bg="warning">
+                  
                   {equipment.status? "Disponível":"Indisponível"}
               </Badge>
                 
@@ -95,6 +102,7 @@ const Equipments: React.FC = () => {
               <td>
               <div className="btn-group" role="group" aria-label="Exemplo de botões separados">
                 <Button size="sm" onClick={() => updateEquipment(equipment.id)}>Editar</Button>{" "}
+                <Button size="sm" onClick={()=> editEquipments(equipment.id)}>Editar</Button>{" "}
                 <Button size="sm" variant="success">Reservar</Button>{" "}
                 <Button size="sm" variant="info" onClick={() => viewEquipment(equipment.id)}>Visualizar</Button>{" "}
 
