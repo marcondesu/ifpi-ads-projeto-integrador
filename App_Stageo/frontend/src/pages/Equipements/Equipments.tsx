@@ -39,9 +39,9 @@ const Equipments: React.FC = () => {
     }
   }
 
-  function formateDate(date:Date) {
-    return moment(date).format("DD/MM/YYYY")
-  }
+  // function formateDate(date:Date) {
+  //   return moment(date).format("DD/MM/YYYY")
+  // }
  
   function addEquipment(){
     history('/Cadastrar_equipamentos',{replace:false});
@@ -56,13 +56,21 @@ const Equipments: React.FC = () => {
     history(`/Equipments/${id}`,{replace:false});
 
   }
-
   
-
-  function editEquipments(id:number){
-    history(`/Cadastrar_equipamentos/${id}}`,{replace:false});
+  function reserveEquipment(id:number){
+    history(`/Equipments/${id}`,{replace:false});
 
   }
+
+  async function deleteEquipment(id: number) {
+    try {
+      await api.delete(`/Equipments/${id}`);
+      loadEquipments();
+    } catch (error) {
+      console.error("Failed to delete equipment", error);
+    }
+  }
+
 
 
   return (
@@ -79,9 +87,8 @@ const Equipments: React.FC = () => {
           <tr>
             <th>ID</th>
             <th>Nome</th>
-            <th>Descrição</th>
             <th>Status</th>
-            <th>Data de criação</th>
+            {/* <th>Data de criação</th> */}
             <th>Ações</th>
           </tr>
         </thead>
@@ -90,7 +97,7 @@ const Equipments: React.FC = () => {
             <tr key={equipment.id}>
               <td>{equipment.id}</td>
               <td>{equipment.nome}</td>
-              <td>{equipment.description}</td>
+              {/* <td>{equipment.description}</td> */}
               <td>
               <Badge bg="warning">
                   
@@ -98,13 +105,13 @@ const Equipments: React.FC = () => {
               </Badge>
                 
               </td>
-              <td>{formateDate(equipment.create_at)}</td> 
+              {/* <td>{formateDate(equipment.create_at)}</td>  */}
               <td>
               <div className="btn-group" role="group" aria-label="Exemplo de botões separados">
                 <Button size="sm" onClick={() => updateEquipment(equipment.id)}>Editar</Button>{" "}
-                <Button size="sm" onClick={()=> editEquipments(equipment.id)}>Editar</Button>{" "}
-                <Button size="sm" variant="success">Reservar</Button>{" "}
+                <Button size="sm" variant="success" onClick={() => reserveEquipment(equipment.id)}>Reservar</Button>{" "}
                 <Button size="sm" variant="info" onClick={() => viewEquipment(equipment.id)}>Visualizar</Button>{" "}
+                <Button size="sm" variant="danger" onClick={() => deleteEquipment(equipment.id)}>Remover</Button>{" "}
 
               </div>                
               </td>

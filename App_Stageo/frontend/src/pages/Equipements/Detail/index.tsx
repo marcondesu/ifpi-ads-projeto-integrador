@@ -1,15 +1,17 @@
 import React,{useEffect, useState} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button, Card } from "react-bootstrap";
+import Badge from 'react-bootstrap/Badge';
 import api from "../../../services/api";
+import moment from "moment";
 
 interface IEquipment {
     id:number
     nome: string;
     description: string;
     status: boolean;
-    created_at:Date
-    updated_at:Date
+    create_at:Date
+    update_at:Date
 }
   
 
@@ -19,7 +21,6 @@ const Detail: React.FC = () => {
     const [equipments, setEquipments] = useState<IEquipment>()
 
     useEffect(() => {
-        
         findEquipment();
     },[id])
 
@@ -32,6 +33,11 @@ const Detail: React.FC = () => {
         console.log(response);
         setEquipments(response.data);
     }
+
+    
+  function formatDate(date:Date) {
+    return moment(date).format("DD/MM/YYYY")
+  }
 
     return (
         <div className="container">
@@ -46,7 +52,31 @@ const Detail: React.FC = () => {
             <Card.Img variant="top" src="" />
             <Card.Body>
                 <Card.Title>{equipments?.nome}</Card.Title>
-                <Card.Text>{equipments?.description}</Card.Text>
+                <Card.Text>
+                    {equipments?.description}
+                    <br />
+                    <Badge bg={equipments?.status ? "success":"warning"}>
+                        {equipments?.status ? "Disponível": "Indisponível"}
+                    </Badge>
+                    <br />
+                    <strong>Data de cadastro:{" "}
+                        {equipments?.create_at && (
+                            <Badge bg="info">
+                                {formatDate(equipments.create_at)}
+                            </Badge>
+                        )}
+                    </strong>
+                    <br />
+                    <strong>Data de atualização:{" "}
+                        {equipments?.update_at && (
+                            <Badge bg="info">
+                                {formatDate(equipments.update_at)}
+                            </Badge>
+                        )}
+                    </strong>
+
+                  
+                    </Card.Text>
                 <Button variant="primary">Go somewhere</Button>
             </Card.Body>
         </Card>
