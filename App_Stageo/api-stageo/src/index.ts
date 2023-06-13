@@ -3,10 +3,13 @@ import * as express from "express"
 import * as bodyParser from "body-parser"
 import * as cors from "cors"
 import routesEquipment from "./Equipments/routes/routesEquipments"
-import routesExemplary from "./Exemplary/routes/routesExemplary"
 import { AppDataSource } from "./data-source"
 import * as swagguerUi from "swagger-ui-express"
 import * as swaggerDocument from "./swagger.json"
+import routesUser from "./User/routes/routesUser"
+import routesReserve from "./Reserve/routes/routesReserve"
+
+
 
 const app = express()
 // const port = process.env.PORT || 3333
@@ -27,6 +30,7 @@ const corsOptions = {
 app.use("/api-docs",swagguerUi.serve, swagguerUi.setup(swaggerDocument))
 app.use(cors(corsOptions));
 app.use(bodyParser.json())
+app.use(routesReserve)
 app.use(routesEquipment)
-app.use(routesExemplary)
+app.use(routesUser)
 app.listen(3333)

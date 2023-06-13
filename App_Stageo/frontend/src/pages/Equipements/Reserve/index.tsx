@@ -11,7 +11,7 @@ interface IEquipment {
 
 const Equipment: React.FC = () => {
   const history = useNavigate();
-  const { id } = useParams(); // Obtém o ID da URL
+  const { equipmentId } = useParams(); // Obtém o ID da URL
 
   const [model, setModel] = useState<IEquipment>({
     nome: "",
@@ -21,14 +21,14 @@ const Equipment: React.FC = () => {
 
   useEffect(() => {
     // Verifica se é uma edição e carrega os dados do equipamento existente
-    if (id !== undefined) {
-      findEquipment(id);
+    if (equipmentId !== undefined) {
+      findEquipment(equipmentId);
     }
-  }, [id]);
+  }, [equipmentId]);
 
-  async function findEquipment(id: string) {
+  async function findEquipment(equipmentId: string) {
     try {
-      const response = await api.get(`/Equipments/${id}`);
+      const response = await api.get(`/Equipments/${equipmentId}`);
       const equipmentData = response.data;
       setModel(equipmentData);
     } catch (error) {

@@ -12,10 +12,10 @@ export const getEquipments = async (request:Request, response:Response) => {
 }
 
 export const getEquipmentsById = async (request:Request, response:Response) => {
-    const {id}  = request.params
-    const equipmentId = Number(id)
-    const equipment = await AppDataSource.getRepository(Equipments).findOneBy({id:equipmentId})
-    if(equipment.id === null){
+    const {equipmentId}  = request.params
+    const ID = Number(equipmentId)
+    const equipment = await AppDataSource.getRepository(Equipments).findOneBy({equipmentId:ID})
+    if(equipment.equipmentId === null){
         return response.status(404).json({message:"Equipamento não encontrado."})
     }
     return response.json(equipment)
@@ -56,19 +56,19 @@ export const getEquipmentsByName = async (request: Request, response: Response) 
 // };
 
 export const deleteEquipments = async (request: Request, response: Response) => {
-    const { id } = request.params;
-    const equipmentId = Number(id);
+    const { equipmentId } = request.params;
+    const ID = Number(equipmentId);
   
     const equipmentRepository = AppDataSource.getRepository(Equipments);
   
     try {
-      const equipment = await equipmentRepository.findOneBy({ id: equipmentId });
+      const equipment = await equipmentRepository.findOneBy({ equipmentId: ID });
   
       if (!equipment) {
         return response.status(404).json({ message: "Equipamento não encontrado." });
       }
   
-      await equipmentRepository.delete({ id: equipmentId });
+      await equipmentRepository.delete({ equipmentId: ID });
   
       return response.status(200).json({ message: "Equipamento removido." });
     } catch (error) {
@@ -79,11 +79,11 @@ export const deleteEquipments = async (request: Request, response: Response) => 
   
 
 export const updateEquipments = async (request:Request, response:Response) => {
-    const {id} = request.params
-    const equipmentId = Number(id)
-    const equipments = await AppDataSource.getRepository(Equipments).update({id:equipmentId},request.body)
+    const {equipmentId} = request.params
+    const ID = Number(equipmentId)
+    const equipments = await AppDataSource.getRepository(Equipments).update({equipmentId:ID},request.body)
     if(equipments.affected === 1) {
-        const equipmentUpdate = await AppDataSource.getRepository(Equipments).findOneBy({id:equipmentId})
+        const equipmentUpdate = await AppDataSource.getRepository(Equipments).findOneBy({equipmentId:ID})
         return response.json(equipmentUpdate)
     }
     return response.status(404).json({message:"Equipamento não encontrado."})

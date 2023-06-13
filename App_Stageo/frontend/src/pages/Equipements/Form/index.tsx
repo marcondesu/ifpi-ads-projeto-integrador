@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Badge } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../../../services/api";
@@ -13,7 +13,7 @@ interface IEquipment {
 
 const Equipment: React.FC = () => {
   const history = useNavigate();
-  const { id } = useParams(); // Obtém o ID da URL
+  const { equipmentId } = useParams(); // Obtém o ID da URL
 
   const [model, setModel] = useState<IEquipment>({
     nome: "",
@@ -23,14 +23,14 @@ const Equipment: React.FC = () => {
 
   useEffect(() => {
     // Verifica se é uma edição e carrega os dados do equipamento existente
-    if (id !== undefined) {
-      findEquipment(id);
+    if (equipmentId !== undefined) {
+      findEquipment(equipmentId);
     }
-  }, [id]);
+  }, [equipmentId]);
 
-  async function findEquipment(id: string) {
+  async function findEquipment(equipmentId: string) {
     try {
-      const response = await api.get(`/Equipments/${id}`);
+      const response = await api.get(`/Equipments/${equipmentId}`);
       const equipmentData = response.data;
       setModel(equipmentData);
     } catch (error) {
@@ -42,6 +42,7 @@ const Equipment: React.FC = () => {
     setModel({
       ...model,
       [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value,
+      
     });
   }
 
@@ -49,9 +50,9 @@ const Equipment: React.FC = () => {
     e.preventDefault();
 
     try {
-      if (id) {
+      if (equipmentId) {
         // Atualiza o equipamento existente
-        const response = await api.put(`/Equipments/${id}`, model);
+        const response = await api.put(`/Equipments/${equipmentId}`, model);
         console.log(response);
       } else {
         // Adiciona um novo equipamento
@@ -73,7 +74,7 @@ const Equipment: React.FC = () => {
     <div className="container">
       <br />
       <div className="equipment-header">
-        <h1>{id ? "Editar Equipamento" : "Novo Equipamento"}</h1>
+        <h1>{equipmentId ? "Editar Equipamento" : "Novo Equipamento"}</h1>
         <Button variant="dark" onClick={back} size="sm">
           Voltar
         </Button>
