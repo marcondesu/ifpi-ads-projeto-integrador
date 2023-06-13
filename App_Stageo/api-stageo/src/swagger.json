@@ -1,0 +1,859 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de manipulação de estações",
+        "description": "Essa API tem como objetivo a manipulação dos equipamentos armazenados no laboratório de Geoprocessamento.",
+        "contact": {
+            "email": "cibellemaciel02@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths" : {
+        "/Equipments": {
+            "post":{
+                "summary": "Cadastro de equipamento",
+                "description": "Essa rota será responsável por cadastrar um novo equipamento",
+                "tags": ["Equipments"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Equipments"
+                            },
+                            "examples": {
+                                "Equipment": {
+                                    "value": {
+                                        "id": "1",
+                                        "nome": "drone",
+                                        "descrição": "veículo aéreo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "descrição": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Equipments"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Listagem de equipamentos",
+                "description": "Essa rota será responsável por retornar a lista de todos os equipamentos",
+                "tags": ["Equipments"],
+                "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Equipments"
+                        }
+                        }
+                    }
+                    }
+                },
+                "404": {
+                    "description": "Nenhum equipamento encontrado"
+                }
+                }
+            }              
+        }, 
+        "/Equipments/{nome}": {
+            "get": {
+                "summary": "Busca equipamento pelo nome",
+                "description": "Essa rota será responsável pela busca de equipamento pelo nome",
+                "tags": ["Equipments"],
+                "parameters": [
+                    {
+                        "name": "nome",
+                        "in": "path",
+                        "description": "Nome do equipamento para busca",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "descrição": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Equipments"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Equipamento não encontrado"
+                    }
+                }
+
+            }
+        }, "/Equipments/{id}": {
+            "get": {
+                "summary": "Busca equipamento pelo id",
+                "description": "Essa rota será responsável pela busca de equipamento pelo id",
+                "tags": ["Equipments"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Equipamento pelo id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Equipments"
+                            },
+                            "examples": {
+                                "Equipment": {
+                                    "value": {
+                                        "id": "2",
+                                        "nome": "drone com câmera 4K",
+                                        "descrição": "veículo aéreo não tripulado"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "descrição": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Equipments"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Equipamento não encontrado"
+                    }
+                }
+
+            },
+            "put": {
+                "summary": "Alterar equipamento pelo id",
+                "description": "Essa rota será responsável pela alteração de equipamento pelo id",
+                "tags": ["Equipments"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Alterar equipamento pelo id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "descrição": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Equipments"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Equipamento não encontrado"
+                    }
+                }
+
+            },
+                  "delete": {
+                  "summary": "Exclusão de equipamento pelo ID",
+                  "description": "Essa rota será responsável pela exclusão de um equipamento pelo ID",
+                  "tags": ["Equipments"],
+                  "parameters": [
+                    {
+                      "name": "id",
+                      "in": "path",
+                      "description": "ID do equipamento a ser excluído",
+                      "required": true
+                    }
+                  ],
+                  "responses": {
+                    "200": {
+                      "description": "Equipamento deletado"
+                    },
+                    "404": {
+                        "description": "Equipamento não encontrado"
+                    }
+                  }
+                }
+        },
+        "/User": {
+            "post": {
+              "summary": "Cadastro de usuário",
+              "description": "Essa rota será responsável por cadastrar um novo usuário",
+              "tags": ["User"],
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/User"
+                    },
+                    "examples": {
+                      "User": {
+                        "value": {
+                          "id": "1",
+                          "nome": "John Doe",
+                          "email": "johndoe@example.com"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "responses": {
+                "200": {
+                  "description": "OK",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "$ref": "#/components/schemas/User"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "get": {
+                "summary": "Listagem de usuários",
+                "description": "Essa rota será responsável por retornar a lista de todos os usuários",
+                "tags": ["User"],
+                "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/User"
+                        }
+                        }
+                    }
+                    }
+                },
+                "404": {
+                    "description": "Nenhum usuário encontrado"
+                }
+                }
+            }              
+        }, 
+        "/User/{nome}": {
+            "get": {
+                "summary": "Busca usuário pelo nome",
+                "description": "Essa rota será responsável pela busca de usuário pelo nome",
+                "tags": ["User"],
+                "parameters": [
+                    {
+                        "name": "nome",
+                        "in": "path",
+                        "description": "Nome do usuário para busca",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "descrição": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado"
+                    }
+                }
+
+            }
+        }, "/User/{id}": {
+            "get": {
+                "summary": "Busca usuário pelo id",
+                "description": "Essa rota será responsável pela busca de usuário pelo id",
+                "tags": ["User"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Usuário pelo id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "examples": {
+                                "User": {
+                                    "value": {
+                                        "id": "11",
+                                        "nome": "Cibelle",
+                                        "email": "cibellemaciel02@gmail.com"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "descrição": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado"
+                    }
+                }
+
+            },
+            "put": {
+                "summary": "Alterar usuário pelo id",
+                "description": "Essa rota será responsável pela alteração de usuário pelo id",
+                "tags": ["User"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Alterar usuário pelo id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "descrição": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado"
+                    }
+                }
+
+            },
+                  "delete": {
+                  "summary": "Exclusão de usuário pelo ID",
+                  "description": "Essa rota será responsável pela exclusão de um usuário pelo ID",
+                  "tags": ["User"],
+                  "parameters": [
+                    {
+                      "name": "id",
+                      "in": "path",
+                      "description": "ID do usuário a ser excluído",
+                      "required": true
+                    }
+                  ],
+                  "responses": {
+                    "200": {
+                      "description": "Usuário deletado"
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado"
+                    }
+                  }
+                }
+          },
+          "/Routes": {
+            "get": {
+              "summary": "Buscar todas as reservas",
+              "tags": ["Reservas"],
+              "responses": {
+                "200": {
+                  "description": "OK",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Reserva"
+                        }
+                      }
+                    }
+                  }
+                },
+                "404": {
+                    "description": "Nenhuma reserva encontrada",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "message": {
+                              "type": "string",
+                              "example": "Nenhuma reserva foi cadastrada ainda"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+              }
+            },
+            "post": {
+              "summary": "Criar uma nova reserva",
+              "tags": ["Reservas"],
+              "requestBody": {
+                "required": true,
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Reserva"
+                    }
+                  }
+                }
+              },
+              "responses": {
+                "200": {
+                  "description": "OK",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Reserva"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "/Routes/{id}": {
+            "get": {
+              "summary": "Buscar reserva pelo ID",
+              "tags": ["Reservas"],
+              "parameters": [
+                {
+                  "name": "id",
+                  "in": "path",
+                  "description": "ID da reserva",
+                  "required": true,
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "OK",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Reserva"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                    "description": "Reserva não encontrada",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "message": {
+                              "type": "string",
+                              "example": "Reserva não encontrada"
+                            }
+                          }
+                        }
+                      }
+                    }
+                }
+              }
+            },
+            "put": {
+              "summary": "Atualizar reserva pelo ID",
+              "tags": ["Reservas"],
+              "parameters": [
+                {
+                  "name": "id",
+                  "in": "path",
+                  "description": "ID da reserva",
+                  "required": true,
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+              "requestBody": {
+                "required": true,
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Reserva"
+                    }
+                  }
+                }
+              },
+              "responses": {
+                "200": {
+                  "description": "OK",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Reserva"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                    "description": "Reserva não encontrada",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "message": {
+                              "type": "string",
+                              "example": "Reserva não encontrada"
+                            }
+                          }
+                        }
+                      }
+                    }
+                }
+              }
+            },
+            "delete": {
+              "summary": "Excluir reserva pelo ID",
+              "tags": ["Reservas"],
+              "parameters": [
+                {
+                  "name": "id",
+                  "in": "path",
+                  "description": "ID da reserva",
+                  "required": true,
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "OK"
+                },
+                "404": {
+                    "description": "Reserva não encontrada",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "message": {
+                              "type": "string",
+                              "example": "Reserva não encontrada"
+                            }
+                          }
+                        }
+                      }
+                    }
+                }
+              }
+            }
+        },
+        "/Exemplary": {
+            "post": {
+                "summary": "Cadastrar exemplar",
+                "tags": ["Exemplary"],
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Exemplary"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "OK",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "$ref": "#/components/schemas/Exemplary"
+                        }
+                      }
+                    }
+                  }
+                }
+            },
+            "get": {
+              "summary": "Buscar todos os exemplares",
+              "tags": ["Exemplary"],
+              "responses": {
+                "200": {
+                  "description": "OK",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Exemplary"
+                        }
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Nenhum exemplar encontrado"
+                }
+              }
+            }
+          },
+          
+          "/Exemplary/{tombo}": {
+            "get": {
+              "summary": "Buscar exemplar pelo tombo",
+              "tags": ["Exemplary"],
+              "parameters": [
+                {
+                  "name": "tombo",
+                  "in": "path",
+                  "description": "Número do tombo do exemplar",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "OK",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Exemplary"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Exemplar não encontrado"
+                }
+              }
+            },
+            "delete": {
+                "summary": "Excluir exemplar",
+                "tags": ["Exemplary"],
+                "parameters": [
+                  {
+                    "name": "tombo",
+                    "in": "path",
+                    "description": "Número de tombo do exemplar",
+                    "required": true,
+                    "schema": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "OK"
+                  },
+                  "404": {
+                    "description": "Exemplar não encontrado"
+                  }
+                }
+              },
+              "put": {
+                "summary": "Atualizar exemplar",
+                "tags": ["Exemplary"],
+                "parameters": [
+                  {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID do exemplar",
+                    "required": true,
+                    "schema": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Exemplary"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "OK",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "$ref": "#/components/schemas/Exemplary"
+                        }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Exemplar não encontrado"
+                }
+              }
+            }    
+          },          
+          "/Exemplary/{nome}": {
+            "get": {
+              "summary": "Buscar exemplares pelo nome",
+              "tags": ["Exemplary"],
+              "parameters": [
+                {
+                  "name": "nome",
+                  "in": "path",
+                  "description": "Nome do exemplar",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "OK",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Exemplary"
+                        }
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Nenhum exemplar encontrado"
+                }
+              }
+            }
+          } 
+    },
+    "components": {
+        "schemas": {
+            "Equipments": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "date"
+                    },
+                    "updated_at": {
+                        "type": "date"
+                    }
+                }
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "tipo_user": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Reservas": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "exemplar": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "date"
+                    },
+                    "data-devolucao": {
+                        "type": "date"
+                    },
+                    "situacao": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "Exemplary": {
+                "type": "object",
+                "properties": {
+                    "tombo": {
+                        "type": "string"
+                    },
+                    "equipmets": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

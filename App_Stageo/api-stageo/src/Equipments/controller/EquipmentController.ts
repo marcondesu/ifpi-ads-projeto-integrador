@@ -12,8 +12,9 @@ export const getEquipments = async (request:Request, response:Response) => {
 }
 
 export const getEquipmentsById = async (request:Request, response:Response) => {
-    const id  = request.params['id']
-    const equipment = await AppDataSource.getRepository(Equipments).findOneBy({id})
+    const {id}  = request.params
+    const equipmentId = Number(id)
+    const equipment = await AppDataSource.getRepository(Equipments).findOneBy({id:equipmentId})
     if(equipment.id === null){
         return response.status(404).json({message:"Equipamento não encontrado."})
     }
@@ -22,7 +23,7 @@ export const getEquipmentsById = async (request:Request, response:Response) => {
 
 
 export const getEquipmentsByName = async (request: Request, response: Response) => {
-    const nome = request.params['nome'];
+    const {nome} = request.params;
     const equipmentRepository = AppDataSource.getRepository(Equipments);
     const equipmentQuery = await equipmentRepository.find({
       where: { nome: ILike(`%${nome}%`) },
@@ -37,27 +38,52 @@ export const getEquipmentsByName = async (request: Request, response: Response) 
 
 
 
-export const saveEquipments = async (request:Request, response:Response) => {
-    const equipments = await AppDataSource.getRepository(Equipments).save(request.body )
-    response.json(equipments)
-}
+  export const saveEquipments = async (request:Request, response:Response) => {
+      const equipments = await AppDataSource.getRepository(Equipments).save(request.body )
+      response.json(equipments)
+    }
 
+
+// export const deleteEquipments = async (request: Request, response: Response) => {
+//     const {id} = request.params
+//     const equipmentId = Number(id)
+//     const equipments = await AppDataSource.getRepository(Equipments).delete({id:equipmentId})
+//     if(equipments.affected === 1) {
+//         const equipmentDelete = await AppDataSource.getRepository(Equipments).findOneBy({id:equipmentId})
+//         return response.json(equipmentDelete,).status(200).json({message:"Equipamento removido."})
+//     } 
+//     return response.status(404).json({message:"Equipamento não encontrado"})
+// };
 
 export const deleteEquipments = async (request: Request, response: Response) => {
-    const id = request.params['id']
-    const equipments = await AppDataSource.getRepository(Equipments).delete({id})
-    if(equipments.affected === 1) {
-        const equipmentDelete = await AppDataSource.getRepository(Equipments).findOneBy({id})
-        return response.json(equipmentDelete,).status(200).json({message:"Equipamento removido."})
-    } 
-    return response.status(404).json({message:"Equipamento não encontrado"})
+    const { id } = request.params;
+    const equipmentId = Number(id);
+  
+    const equipmentRepository = AppDataSource.getRepository(Equipments);
+  
+    try {
+      const equipment = await equipmentRepository.findOneBy({ id: equipmentId });
+  
+      if (!equipment) {
+        return response.status(404).json({ message: "Equipamento não encontrado." });
+      }
+  
+      await equipmentRepository.delete({ id: equipmentId });
+  
+      return response.status(200).json({ message: "Equipamento removido." });
+    } catch (error) {
+      console.error("Failed to delete equipment", error);
+      return response.status(500).json({ message: "Erro ao deletar o equipamento." });
+    }
 };
+  
 
 export const updateEquipments = async (request:Request, response:Response) => {
-    const id = request.params['id']
-    const equipments = await AppDataSource.getRepository(Equipments).update({id},request.body)
+    const {id} = request.params
+    const equipmentId = Number(id)
+    const equipments = await AppDataSource.getRepository(Equipments).update({id:equipmentId},request.body)
     if(equipments.affected === 1) {
-        const equipmentUpdate = await AppDataSource.getRepository(Equipments).findOneBy({id})
+        const equipmentUpdate = await AppDataSource.getRepository(Equipments).findOneBy({id:equipmentId})
         return response.json(equipmentUpdate)
     }
     return response.status(404).json({message:"Equipamento não encontrado."})

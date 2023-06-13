@@ -1,18 +1,14 @@
-import { Column, ManyToOne , Entity, PrimaryColumn, JoinColumn } from "typeorm";
+import { Column, ManyToOne , Entity, PrimaryColumn, JoinColumn, PrimaryGeneratedColumn } from "typeorm";
 import {Equipments} from "../../Equipments/entity/Equipments"
 
 @Entity ()
 export class Exemplary {
-    @PrimaryColumn({type:'varchar'})
-    tombo:string;
+    @PrimaryGeneratedColumn()
+    tombo:number;
 
     @ManyToOne(type => Equipments)
     @JoinColumn({name:"id"})
     equipments: Equipments;
-    
-
-    // @Column()
-    // status:boolean;
 
 
     @Column({nullable:false})

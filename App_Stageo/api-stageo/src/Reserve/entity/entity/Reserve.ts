@@ -1,6 +1,6 @@
 import { PrimaryColumn, Column, Entity , ManyToOne, OneToOne, JoinColumn, OneToMany } from "typeorm";
 import { User } from "../../../User/entity/User";
-import { Exemplary } from "../../../Exemplary/entity/Exemplary";
+import { Equipments } from "../../../Equipments/entity/Equipments";
 
 
 @Entity()
@@ -12,9 +12,9 @@ export class Reserve {
     @JoinColumn({ name: "id" })
     user: User;
 
-    @OneToMany(type => Exemplary, mappedBy => "reserve")
-    @JoinColumn({ name: "tombo" })
-    exemplary: Exemplary[];
+    @OneToMany(type => Equipments, mappedBy => "reserve")
+    @JoinColumn({ name: "id" })
+    equipment: Equipments[];
     
 
     @Column()

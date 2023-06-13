@@ -1,10 +1,10 @@
-import { PrimaryColumn, Column, Entity } from "typeorm";
+import { PrimaryColumn, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
 export class User {
-    @PrimaryColumn({ type: "varchar"})
-    id:string;
+    @PrimaryGeneratedColumn()
+    id:number;
 
     @Column()
     tipo_user:string;
