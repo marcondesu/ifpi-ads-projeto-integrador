@@ -1,4 +1,4 @@
-import { AppDataSource } from "../../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Request, Response } from "express";
 import { Reserve } from "../entity/Reserve";
 
@@ -13,8 +13,9 @@ export const getReserve = async (request:Request, response:Response) => {
 
 
 export const getReserveById = async (request:Request, response:Response) => {
-    const id  = request.params['id']
-    const reserve = await AppDataSource.getRepository(Reserve).findOneBy({id})
+    const {id} = request.params
+    const idReserve = Number(id)
+    const reserve = await AppDataSource.getRepository(Reserve).findOneBy({id:idReserve})
     if(reserve.id === null){
         return response.status(404).json({message:"Reserva não encontrada."})
     }
@@ -30,20 +31,22 @@ export const saveReserve = async (request:Request, response:Response) => {
 }
 
 export const deleteReserve = async (request: Request, response: Response) => {
-    const id = request.params['id']
-    const reserve = await AppDataSource.getRepository(Reserve).delete({id})
+    const {id} = request.params
+    const idReserve = Number(id)
+    const reserve = await AppDataSource.getRepository(Reserve).delete({id:idReserve})
     if(reserve.affected === 1) {
-        const reserveDelete = await AppDataSource.getRepository(Reserve).findOneBy({id})
+        const reserveDelete = await AppDataSource.getRepository(Reserve).findOneBy({id:idReserve})
         return response.json(reserveDelete,).status(200).json({message:"Reserva removida."})
     } 
     return response.status(404).json({message:"Reserva não encontrada"})
 };
 
 export const updateReserve = async (request:Request, response:Response) => {
-    const id = request.params['id']
-    const reserve = await AppDataSource.getRepository(Reserve).update({id},request.body)
+    const {id} = request.params
+    const idReserve = Number(id)
+    const reserve = await AppDataSource.getRepository(Reserve).update({id:idReserve},request.body)
     if(reserve.affected === 1) {
-        const reserveUpdate = await AppDataSource.getRepository(Reserve).findOneBy({id})
+        const reserveUpdate = await AppDataSource.getRepository(Reserve).findOneBy({id:idReserve})
         return response.json(reserveUpdate)
     }
     return response.status(404).json({message:"Reserva não encontrada."})

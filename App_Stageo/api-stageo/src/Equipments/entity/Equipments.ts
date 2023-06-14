@@ -3,7 +3,7 @@ import { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn
 @Entity()
 export class Equipments {
     @PrimaryGeneratedColumn()
-    id:number;
+    equipmentId:number;
     
     @Column()
     nome:string;

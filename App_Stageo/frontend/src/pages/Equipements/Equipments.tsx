@@ -2,36 +2,30 @@ import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
-import { Badge,Button } from "react-bootstrap";
+import { Badge, Button } from "react-bootstrap";
 import moment from "moment";
-import "./Equipments.css"
-
+import "./Equipments.css";
 
 interface IEquipment {
-  id: number;
+  equipmentId: number;
   nome: string;
   description: string;
-  status:boolean;
+  status: boolean;
   create_at: Date;
   update_at: Date;
 }
 
-
-
 const Equipments: React.FC = () => {
   const [equipments, setEquipments] = useState<IEquipment[]>([]);
-  const history = useNavigate()
-
-
+  const history = useNavigate();
 
   useEffect(() => {
     loadEquipments();
   }, []);
-  
-  
+
   async function loadEquipments() {
     try {
-      const response = await api.get('/Equipments');
+      const response = await api.get("/Equipments");
       console.log(response);
       setEquipments(response.data);
     } catch (error) {
@@ -39,47 +33,46 @@ const Equipments: React.FC = () => {
     }
   }
 
-  // function formateDate(date:Date) {
-  //   return moment(date).format("DD/MM/YYYY")
-  // }
- 
-  function addEquipment(){
-    history('/Cadastrar_equipamentos',{replace:false});
-  }
-  
-  function updateEquipment(id:number){
-    history(`/Cadastrar_equipamentos/${id}`,{replace:false});
-
+  function addEquipment() {
+    history("/Cadastrar_equipamentos", { replace: false });
   }
 
-  function viewEquipment(id:number){
-    history(`/Equipments/${id}`,{replace:false});
-
-  }
-  
-  function reserveEquipment(id:number){
-    history(`/Equipments/${id}`,{replace:false});
-
+  function updateEquipment(equipmentId: number) {
+    history(`/Cadastrar_equipamentos/${equipmentId}`, { replace: false });
   }
 
-  async function deleteEquipment(id: number) {
+  function viewEquipment(equipmentId: number) {
+    history(`/Equipments/${equipmentId}`, { replace: false });
+  }
+
+  async function reserveEquipment(equipmentId: number) {
     try {
-      await api.delete(`/Equipments/${id}`);
+      await api.post(`/Equipments/${equipmentId}/reserve`);
+      console.log(`Equipment ${equipmentId} reserved successfully.`);
+      // Atualize o estado ou recarregue os equipamentos após a reserva.
+      loadEquipments();
+    } catch (error) {
+      console.error(`Failed to reserve equipment ${equipmentId}`, error);
+    }
+  }
+
+  async function deleteEquipment(equipmentId: number) {
+    try {
+      await api.delete(`/Equipments/${equipmentId}`);
       loadEquipments();
     } catch (error) {
       console.error("Failed to delete equipment", error);
     }
   }
 
-
-
   return (
     <div className="container">
       <br />
-      <div className="equipment-header" >
+      <div className="equipment-header">
         <h1>Lista de Equipamentos</h1>
-        
-        <Button variant="dark" size="sm" onClick={addEquipment}>Adicionar Equipamento</Button>
+        <Button variant="dark" size="sm" onClick={addEquipment}>
+          Adicionar Equipamento
+        </Button>
       </div>
       <br />
       <Table striped bordered hover className="text-center">
@@ -94,26 +87,47 @@ const Equipments: React.FC = () => {
         </thead>
         <tbody>
           {equipments.map((equipment) => (
-            <tr key={equipment.id}>
-              <td>{equipment.id}</td>
+            <tr key={equipment.equipmentId}>
+              <td>{equipment.equipmentId}</td>
               <td>{equipment.nome}</td>
               {/* <td>{equipment.description}</td> */}
               <td>
-              <Badge bg="warning">
-                  
-                  {equipment.status? "Disponível":"Indisponível"}
-              </Badge>
-                
+                <Badge bg={equipment?.status ? "success" : "warning"}>
+                  {equipment?.status ? "Disponível" : "Indisponível"}
+                </Badge>
               </td>
               {/* <td>{formateDate(equipment.create_at)}</td>  */}
               <td>
-              <div className="btn-group" role="group" aria-label="Exemplo de botões separados">
-                <Button size="sm" onClick={() => updateEquipment(equipment.id)}>Editar</Button>{" "}
-                <Button size="sm" variant="success" onClick={() => reserveEquipment(equipment.id)}>Reservar</Button>{" "}
-                <Button size="sm" variant="info" onClick={() => viewEquipment(equipment.id)}>Visualizar</Button>{" "}
-                <Button size="sm" variant="danger" onClick={() => deleteEquipment(equipment.id)}>Remover</Button>{" "}
-
-              </div>                
+                <div
+                  className="btn-group"
+                  role="group"
+                  aria-label="Exemplo de botões separados"
+                >
+                  <Button size="sm" onClick={() => updateEquipment(equipment.equipmentId)}>
+                    Editar
+                  </Button>{" "}
+                  <Button
+                    size="sm"
+                    variant="success"
+                    onClick={() => reserveEquipment(equipment.equipmentId)}
+                  >
+                    Reservar
+                  </Button>{" "}
+                  <Button
+                    size="sm"
+                    variant="info"
+                    onClick={() => viewEquipment(equipment.equipmentId)}
+                  >
+                    Visualizar
+                  </Button>{" "}
+                  <Button
+                    size="sm"
+                    variant="danger"
+                    onClick={() => deleteEquipment(equipment.equipmentId)}
+                  >
+                    Remover
+                  </Button>{" "}
+                </div>
               </td>
             </tr>
           ))}
@@ -121,6 +135,6 @@ const Equipments: React.FC = () => {
       </Table>
     </div>
   );
-}
+};
 
 export default Equipments;

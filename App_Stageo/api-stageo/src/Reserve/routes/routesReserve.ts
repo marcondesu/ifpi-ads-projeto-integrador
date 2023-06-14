@@ -5,11 +5,11 @@ import { getReserve, getReserveById, saveReserve, updateReserve, deleteReserve }
 const routes = Router()
 
 
-routes.get('/Routes', getReserve)
-routes.get('/Routes/:id', getReserveById)
-routes.post('/Routes', saveReserve)
-routes.put('/Routes/:id', updateReserve)
-routes.delete('/Routes/:id', deleteReserve)
+routes.get('/Reserve', getReserve)
+routes.get('/Reserve/:id', getReserveById)
+routes.post('/Reserve', saveReserve)
+routes.put('/Reserve/:id', updateReserve)
+routes.delete('/Reserve/:id', deleteReserve)
 
 
 export default routes;

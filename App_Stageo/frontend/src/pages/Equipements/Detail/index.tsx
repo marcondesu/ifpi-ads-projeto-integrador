@@ -6,7 +6,7 @@ import api from "../../../services/api";
 import moment from "moment";
 
 interface IEquipment {
-    id:number
+    equipmentId:number
     nome: string;
     description: string;
     status: boolean;
@@ -17,19 +17,19 @@ interface IEquipment {
 
 const Detail: React.FC = () => {
     const history = useNavigate()
-    const { id } = useParams()
+    const { equipmentId } = useParams()
     const [equipments, setEquipments] = useState<IEquipment>()
 
     useEffect(() => {
         findEquipment();
-    },[id])
+    },[equipmentId])
 
     function back() {
         history("/Equipments");
     }
 
     async function findEquipment() {
-        const response = await api.get<IEquipment>(`/Equipments/${id}`);
+        const response = await api.get<IEquipment>(`/Equipments/${equipmentId}`);
         console.log(response);
         setEquipments(response.data);
     }
@@ -77,7 +77,7 @@ const Detail: React.FC = () => {
 
                   
                     </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
+                {/* <Button variant="primary"></Button> */}
             </Card.Body>
         </Card>
       </div>
