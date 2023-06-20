@@ -9,6 +9,6 @@ routes.get('/Exemplary/:tombo', getExemplaryByTombo)
 routes.get('/Exemplary/:nome', getExemplaryByName)
 routes.post('/Exemplary',saveExemplary)
 routes.delete('/Exemplary/:tombo', deleteExemplary)
-routes.put('/Exemplary/:id',updateExemplary)
+routes.put('/Exemplary/:tombo',updateExemplary)
 
 export default routes;
