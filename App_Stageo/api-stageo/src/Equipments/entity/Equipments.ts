@@ -5,21 +5,13 @@ export class Equipments {
     @PrimaryGeneratedColumn()
     equipmentId:number;
     
-    @Column()
+    @Column({nullable:false})
     nome:string;
     
     @Column()
     description:string;
 
-    @Column()
-    status:boolean;
-    
-    @CreateDateColumn()
-    create_at:Date;
-    
-    @UpdateDateColumn()
-    update_at:Date;
-    
+
     
 }  
 

@@ -25,10 +25,9 @@ export const getUserById = async (request:Request, response:Response) => {
 
 export const saveUser = async (request:Request, response:Response) => {
     const {email} = request.params
-    const user = await AppDataSource.getRepository(User).save(request.body )
+    const user = await AppDataSource.getRepository(User).save(request.body)
     if(email !== null){
         return response.status(404).json({message:'Usuário já cadastrado.'})
-        
     }
 
     response.json(user)

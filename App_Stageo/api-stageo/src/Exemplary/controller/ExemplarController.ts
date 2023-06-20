@@ -1,6 +1,9 @@
 import { AppDataSource } from "../../data-source";
 import { Exemplary } from "../entity/Exemplary";
 import { Request, Response } from "express";
+import { Equipments } from "../../Equipments/entity/Equipments";
+
+
 
 export const getExemplary = async (request:Request, response:Response) => {
     const exemplary = await AppDataSource.getRepository(Exemplary).find(request.body)
@@ -31,10 +34,36 @@ export const getExemplaryByName = async (request:Request, response:Response) => 
 }
 
 
-export const saveExemplary = async (request:Request, response:Response) => {
-    const exemplary = await AppDataSource.getRepository(Exemplary).save(request.body )
-    response.json(exemplary)
-}
+// export const saveExemplary = async (request:Request, response:Response) => {
+//     const exemplary = await AppDataSource.getRepository(Exemplary).save(request.body )
+//     response.json(exemplary)
+// }
+
+export const saveExemplary = async (request: Request, response: Response) => {
+  try {
+    const { equipmentId, status, image } = request.body;
+    // Verificar se o equipamento existe
+    const equipment = await AppDataSource.getRepository(Equipments).findOne(equipmentId);
+    if (!equipment) {
+      return response.status(404).json({ message: "Equipamento não encontrado." });
+    }
+
+    // Criar um novo exemplar
+    const exemplary = new Exemplary();
+    exemplary.equipments = equipment;
+    exemplary.status = status;
+    exemplary.image = image;
+
+    // Salvar o exemplar no banco de dados
+    const savedExemplary = await AppDataSource.getRepository(Exemplary).save(exemplary);
+
+    return response.status(201).json(savedExemplary);
+  } catch (error) {
+    console.error("Erro ao salvar exemplar:", error);
+    return response.status(500).json({ message: "Erro ao salvar exemplar." });
+  }
+};
+
 
 export const deleteExemplary = async (request: Request, response: Response) => {
     const {tombo} = request.params

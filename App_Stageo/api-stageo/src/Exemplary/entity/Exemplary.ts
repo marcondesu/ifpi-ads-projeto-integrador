@@ -7,11 +7,13 @@ export class Exemplary {
     tombo:number;
 
     @ManyToOne(type => Equipments)
-    @JoinColumn({name:"id"})
+    @JoinColumn({name:"equipmentId"})
     equipments: Equipments;
 
+    @Column()
+    status:boolean;
 
-    @Column({nullable:false})
+    @Column()
     image:string;
    
 }
