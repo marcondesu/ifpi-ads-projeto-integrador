@@ -1,25 +1,20 @@
 import { PrimaryGeneratedColumn,CreateDateColumn,PrimaryColumn, Column, Entity , ManyToOne, OneToOne, JoinColumn, OneToMany } from "typeorm";
 import { User } from "../../User/entity/User";
-import { Equipments } from "../../Equipments/entity/Equipments";
+import { Exemplary } from "../../Exemplary/entity/Exemplary";
 
 
 @Entity()
 export class Reserve {
     @PrimaryGeneratedColumn()
-    id:number;
+    reserveId:number;
 
-    @ManyToOne(type => User)
+    @ManyToOne(type => User, {nullable:false})
     @JoinColumn({ name: "userId" })
     user: User;
-
-    @OneToMany(type => Equipments, mappedBy => "reserve")
-    @JoinColumn({ name: "equipmentId" })
-    equipment: Equipments[];
-
 
     @CreateDateColumn()
     data:Date;
     
-    @Column()
+    @Column({nullable:false})
     data_devolucao:Date;
 }

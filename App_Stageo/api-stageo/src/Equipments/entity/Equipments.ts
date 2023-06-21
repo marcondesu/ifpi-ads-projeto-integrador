@@ -11,7 +11,8 @@ export class Equipments {
     @Column()
     description:string;
 
-
-    
+    @Column()
+    image:string;
+ 
 }  
 
