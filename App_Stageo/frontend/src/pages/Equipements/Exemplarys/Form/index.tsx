@@ -2,40 +2,39 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { Button, Badge } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import { useParams, useNavigate } from "react-router-dom";
-import api from "../../../services/api";
+import api from "../../../../services/api";
 import "./index.css";
-import axios from "axios";
 
-interface IEquipment {
+interface IExemplary {
   nome: string;
   description: string;
-  image:string
+  status: boolean;
 }
 
-const Equipment: React.FC = () => {
+const Exemplary: React.FC = () => {
   const history = useNavigate();
-  const { equipmentId } = useParams(); // Obtém o ID da URL
+  const { tombo } = useParams(); // Obtém o ID da URL
 
-  const [model, setModel] = useState<IEquipment>({
+  const [model, setModel] = useState<IExemplary>({
     nome: "",
     description: "",
-    image:"",
+    status: true,
   });
 
   useEffect(() => {
     // Verifica se é uma edição e carrega os dados do equipamento existente
-    if (equipmentId !== undefined) {
-      findEquipment(equipmentId);
+    if (tombo !== undefined) {
+      findExemplary(tombo);
     }
-  }, [equipmentId]);
+  }, [tombo]);
 
-  async function findEquipment(equipmentId: string) {
+  async function findExemplary(tombo: string) {
     try {
-      const response = await api.get(`/Equipments/${equipmentId}`);
+      const response = await api.get(`/Exemplary/${tombo}`);
       const equipmentData = response.data;
       setModel(equipmentData);
     } catch (error) {
-      console.error("Failed to fetch equipment", error);
+      console.error("Failed to fetch exemplary", error);
     }
   }
 
@@ -51,40 +50,31 @@ const Equipment: React.FC = () => {
     e.preventDefault();
 
     try {
-      if (equipmentId) {
+      if (tombo) {
         // Atualiza o equipamento existente
-        const response = await api.put(`/Equipments/${equipmentId}`, model);
+        const response = await api.put(`/Exemplary/${tombo}`, model);
         console.log(response);
       } else {
         // Adiciona um novo equipamento
-        const response = await api.post("/Equipments", model);
+        const response = await api.post("/Exemplary", model);
         console.log(response);
       }
 
-      history("/Equipments"); // Redireciona para a página de lista de equipamentos
+      history("/Exemplary"); // Redireciona para a página de lista de equipamentos
     } catch (error) {
-      console.error("Failed to save equipment", error);
+      console.error("Failed to save exemplary", error);
     }
   }
 
   function back() {
-    history("/Equipments");
-  }
-
-  function urlImage(){
-    axios.get("./").then(response => {
-      
-    }).catch(error => {
-      console.error("Failed to load image", error);
-    });
-
+    history("/Exemplary");
   }
 
   return (
     <div className="container">
       <br />
       <div className="equipment-header">
-        <h1>{equipmentId ? "Editar Equipamento" : "Novo Equipamento"}</h1>
+        <h1>{tombo ? "Editar Reserva" : "Nova Reserva"}</h1>
         <Button variant="dark" onClick={back} size="sm">
           Voltar
         </Button>
@@ -102,26 +92,16 @@ const Equipment: React.FC = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Descrição</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              name="description"
-              value={model.description}
-              onChange={updateModel}
-            />
-          </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Label>URL da imagem</Form.Label>
-            <Form.Control
-              type="text"
-              name="image"
-              value={model.image}
+            <h3>Status</h3>
+            <Form.Check
+              type="checkbox"
+              label="Disponível"
+              name="status"
+              checked={model.status}
               onChange={updateModel}
             />
-            
           </Form.Group>
 
           <Button variant="dark" type="submit">
@@ -133,4 +113,4 @@ const Equipment: React.FC = () => {
   );
 };
 
-export default Equipment;
+export default Exemplary;

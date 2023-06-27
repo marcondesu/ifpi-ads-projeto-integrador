@@ -10,6 +10,8 @@ const Header: React.FC = () => {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
                     <Nav.Item as={Link} className="nav-link" to="/">Inicio</Nav.Item>
+                    {/* <Nav.Item as={Link} className="nav-link" to="/Equipments">Equipamentos</Nav.Item> */}
+
                     <Nav.Link as={Link} className="nav-link" to="/Equipments">Equipamentos</Nav.Link>
                     
                 </Nav>

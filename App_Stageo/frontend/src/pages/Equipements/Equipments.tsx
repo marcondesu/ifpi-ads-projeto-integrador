@@ -3,16 +3,13 @@ import Table from "react-bootstrap/Table";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import { Badge, Button } from "react-bootstrap";
-import moment from "moment";
 import "./Equipments.css";
 
 interface IEquipment {
   equipmentId: number;
   nome: string;
   description: string;
-  status: boolean;
-  create_at: Date;
-  update_at: Date;
+  image:string;
 }
 
 const Equipments: React.FC = () => {
@@ -45,17 +42,6 @@ const Equipments: React.FC = () => {
     history(`/Equipments/${equipmentId}`, { replace: false });
   }
 
-  async function reserveEquipment(equipmentId: number) {
-    try {
-      await api.post(`/Equipments/${equipmentId}/reserve`);
-      console.log(`Equipment ${equipmentId} reserved successfully.`);
-      // Atualize o estado ou recarregue os equipamentos após a reserva.
-      loadEquipments();
-    } catch (error) {
-      console.error(`Failed to reserve equipment ${equipmentId}`, error);
-    }
-  }
-
   async function deleteEquipment(equipmentId: number) {
     try {
       await api.delete(`/Equipments/${equipmentId}`);
@@ -80,7 +66,6 @@ const Equipments: React.FC = () => {
           <tr>
             <th>ID</th>
             <th>Nome</th>
-            <th>Status</th>
             {/* <th>Data de criação</th> */}
             <th>Ações</th>
           </tr>
@@ -90,13 +75,6 @@ const Equipments: React.FC = () => {
             <tr key={equipment.equipmentId}>
               <td>{equipment.equipmentId}</td>
               <td>{equipment.nome}</td>
-              {/* <td>{equipment.description}</td> */}
-              <td>
-                <Badge bg={equipment?.status ? "success" : "warning"}>
-                  {equipment?.status ? "Disponível" : "Indisponível"}
-                </Badge>
-              </td>
-              {/* <td>{formateDate(equipment.create_at)}</td>  */}
               <td>
                 <div
                   className="btn-group"
@@ -105,13 +83,6 @@ const Equipments: React.FC = () => {
                 >
                   <Button size="sm" onClick={() => updateEquipment(equipment.equipmentId)}>
                     Editar
-                  </Button>{" "}
-                  <Button
-                    size="sm"
-                    variant="success"
-                    onClick={() => reserveEquipment(equipment.equipmentId)}
-                  >
-                    Reservar
                   </Button>{" "}
                   <Button
                     size="sm"
@@ -128,11 +99,19 @@ const Equipments: React.FC = () => {
                     Remover
                   </Button>{" "}
                 </div>
+                <Button
+                  className="btn-group"
+                  role="group"
+                  aria-label="Exemplo de botões separados"
+                >
+                  
+                </Button>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
+      
     </div>
   );
 };

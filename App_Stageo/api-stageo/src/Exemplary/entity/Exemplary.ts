@@ -11,10 +11,6 @@ export class Exemplary {
     @JoinColumn({name:"equipmentId"})
     equipments: Equipments;
 
-    @ManyToOne(() => Reserve, { nullable: false })
-    @JoinColumn({ name: "reserveId" })
-    reserve: Reserve;
-
     @Column()
     status:boolean;
 

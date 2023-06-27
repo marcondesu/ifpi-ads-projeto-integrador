@@ -1,6 +1,5 @@
 import { PrimaryGeneratedColumn,CreateDateColumn,PrimaryColumn, Column, Entity , ManyToOne, OneToOne, JoinColumn, OneToMany } from "typeorm";
 import { User } from "../../User/entity/User";
-import { Exemplary } from "../../Exemplary/entity/Exemplary";
 
 
 @Entity()
