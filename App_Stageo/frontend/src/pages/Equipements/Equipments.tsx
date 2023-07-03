@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import api from "../../services/api";
-import { Badge, Button } from "react-bootstrap";
-import moment from "moment";
+import { Button } from "react-bootstrap";
 import "./Equipments.css";
 
 interface IEquipment {
   equipmentId: number;
   nome: string;
   description: string;
-  status: boolean;
-  create_at: Date;
-  update_at: Date;
+  image: string;
 }
 
 const Equipments: React.FC = () => {
   const [equipments, setEquipments] = useState<IEquipment[]>([]);
   const history = useNavigate();
+
 
   useEffect(() => {
     loadEquipments();
@@ -45,17 +43,6 @@ const Equipments: React.FC = () => {
     history(`/Equipments/${equipmentId}`, { replace: false });
   }
 
-  async function reserveEquipment(equipmentId: number) {
-    try {
-      await api.post(`/Equipments/${equipmentId}/reserve`);
-      console.log(`Equipment ${equipmentId} reserved successfully.`);
-      // Atualize o estado ou recarregue os equipamentos após a reserva.
-      loadEquipments();
-    } catch (error) {
-      console.error(`Failed to reserve equipment ${equipmentId}`, error);
-    }
-  }
-
   async function deleteEquipment(equipmentId: number) {
     try {
       await api.delete(`/Equipments/${equipmentId}`);
@@ -78,40 +65,20 @@ const Equipments: React.FC = () => {
       <Table striped bordered hover className="text-center">
         <thead>
           <tr>
-            <th>ID</th>
+            {/* <th>ID</th> */}
             <th>Nome</th>
-            <th>Status</th>
-            {/* <th>Data de criação</th> */}
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
           {equipments.map((equipment) => (
             <tr key={equipment.equipmentId}>
-              <td>{equipment.equipmentId}</td>
+              {/* <td>{equipment.equipmentId}</td> */}
               <td>{equipment.nome}</td>
-              {/* <td>{equipment.description}</td> */}
               <td>
-                <Badge bg={equipment?.status ? "success" : "warning"}>
-                  {equipment?.status ? "Disponível" : "Indisponível"}
-                </Badge>
-              </td>
-              {/* <td>{formateDate(equipment.create_at)}</td>  */}
-              <td>
-                <div
-                  className="btn-group"
-                  role="group"
-                  aria-label="Exemplo de botões separados"
-                >
+                <div className="btn-group" role="group" aria-label="Exemplo de botões separados">
                   <Button size="sm" onClick={() => updateEquipment(equipment.equipmentId)}>
                     Editar
-                  </Button>{" "}
-                  <Button
-                    size="sm"
-                    variant="success"
-                    onClick={() => reserveEquipment(equipment.equipmentId)}
-                  >
-                    Reservar
                   </Button>{" "}
                   <Button
                     size="sm"

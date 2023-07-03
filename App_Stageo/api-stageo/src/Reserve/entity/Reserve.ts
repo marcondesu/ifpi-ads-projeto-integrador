@@ -1,6 +1,5 @@
 import { PrimaryGeneratedColumn,CreateDateColumn,PrimaryColumn, Column, Entity , ManyToOne, OneToOne, JoinColumn, OneToMany } from "typeorm";
 import { User } from "../../User/entity/User";
-import { Exemplary } from "../../Exemplary/entity/Exemplary";
 
 
 @Entity()
@@ -15,6 +14,6 @@ export class Reserve {
     @CreateDateColumn()
     data:Date;
     
-    @Column()
+    @Column({nullable:false})
     data_devolucao:Date;
 }

@@ -5,6 +5,10 @@ import Equipments from "./pages/Equipements/Equipments";
 import EquipmentsForm from "./pages/Equipements/Form"
 import EquipmentsDetail from "./pages/Equipements/Detail"
 import EquipmentsReserve from "./pages/Equipements/Reserve"
+import Exemplary from "./pages/Equipements/Exemplarys/Exemplary"
+
+
+
 
 const Router: React.FC = () => {
     return (
@@ -15,6 +19,9 @@ const Router: React.FC = () => {
             <Route path="/Cadastrar_equipamentos/:equipmentId" element={<EquipmentsForm />} />
             <Route path="/Equipments/:equipmentId" element={<EquipmentsDetail/>} />
             <Route path="/Equipments/:equipmentId" element={<EquipmentsReserve/>} />
+            <Route path="/Exemplary" element={<Exemplary />} />
+            {/* <Route path="/Exemplary/:tombo" element={<ExemplaryForm />} /> */}
+
         </Routes>
     );
 }

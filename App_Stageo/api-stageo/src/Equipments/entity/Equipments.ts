@@ -5,7 +5,7 @@ export class Equipments {
     @PrimaryGeneratedColumn()
     equipmentId:number;
     
-    @Column()
+    @Column({nullable:false})
     nome:string;
     
     @Column()
@@ -13,6 +13,6 @@ export class Equipments {
 
     @Column()
     image:string;
-    
+ 
 }  
 

@@ -34,26 +34,15 @@ export const getEquipmentsByName = async (request: Request, response: Response) 
     }
   
     return response.json(equipmentQuery);
+}
+
+
+
+export const saveEquipments = async (request:Request, response:Response) => {
+    const equipments = await AppDataSource.getRepository(Equipments).save(request.body )
+    response.json(equipments)
   }
 
-
-
-  export const saveEquipments = async (request:Request, response:Response) => {
-      const equipments = await AppDataSource.getRepository(Equipments).save(request.body )
-      response.json(equipments)
-    }
-
-
-// export const deleteEquipments = async (request: Request, response: Response) => {
-//     const {id} = request.params
-//     const equipmentId = Number(id)
-//     const equipments = await AppDataSource.getRepository(Equipments).delete({id:equipmentId})
-//     if(equipments.affected === 1) {
-//         const equipmentDelete = await AppDataSource.getRepository(Equipments).findOneBy({id:equipmentId})
-//         return response.json(equipmentDelete,).status(200).json({message:"Equipamento removido."})
-//     } 
-//     return response.status(404).json({message:"Equipamento não encontrado"})
-// };
 
 export const deleteEquipments = async (request: Request, response: Response) => {
     const { equipmentId } = request.params;

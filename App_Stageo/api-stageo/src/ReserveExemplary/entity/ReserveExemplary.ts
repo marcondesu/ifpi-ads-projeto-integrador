@@ -9,6 +9,6 @@ export class ReserveExemplary {
   @JoinColumn({ name: "reserveId" })
   reserve: Reserve;
 
-  @OneToMany(() => Exemplary, exemplary => exemplary.reserve, { nullable: false })
+  @OneToMany(() => Exemplary, exemplary => exemplary.tombo, { nullable: false })
   exemplaries: Exemplary[];
 }

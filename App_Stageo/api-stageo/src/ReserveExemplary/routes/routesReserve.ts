@@ -1,15 +1,14 @@
 import { Router } from "express"
-import { getReserve, getReserveById, saveReserve, updateReserve, deleteReserve } from '../controller/ReserveExemplaryController'
+import { getReserveExemplary, saveReserveExemplary, updateReserveExemplary, deleteReserveExemplary } from '../controller/ReserveExemplaryController'
 
 
 const routes = Router()
 
 
-// routes.get('/ReserveExemplary', getReserve)
-// routes.get('/ReserveExemplary/:id', getReserveById)
-routes.post('/ReserveExemplary', saveReserve)
-routes.put('/ReserveExemplary/', updateReserve)
-routes.delete('/ReserveExemplary/', deleteReserve)
+routes.get('/ReserveExemplary', getReserveExemplary)
+routes.post('/ReserveExemplary', saveReserveExemplary)
+routes.put('/ReserveExemplary/', updateReserveExemplary)
+routes.delete('/ReserveExemplary/', deleteReserveExemplary)
 
 
 export default routes;

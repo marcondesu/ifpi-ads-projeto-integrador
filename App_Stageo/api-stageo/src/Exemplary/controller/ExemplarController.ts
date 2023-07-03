@@ -3,6 +3,9 @@ import { Exemplary } from "../entity/Exemplary";
 import { Request, Response } from "express";
 import { Equipments } from "../../Equipments/entity/Equipments";
 
+
+
+
 export const getExemplary = async (request:Request, response:Response) => {
     const exemplary = await AppDataSource.getRepository(Exemplary).find(request.body)
     if(exemplary === null){
@@ -61,9 +64,11 @@ export const saveExemplary = async (request: Request, response: Response) => {
     }
 };
    
-  
 
-
+// export const saveExemplary = async (request:Request, response:Response) => {
+//     const exemplary = await AppDataSource.getRepository(Exemplary).save(request.body )
+//     response.json(exemplary)
+// }
 
 export const deleteExemplary = async (request: Request, response: Response) => {
     const {tombo} = request.params

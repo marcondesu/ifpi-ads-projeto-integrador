@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../../../services/api";
 
-interface IEquipment {
+interface IExemplary {
   nome: string;
   description: string;
   status: boolean;
@@ -11,9 +11,9 @@ interface IEquipment {
 
 const Equipment: React.FC = () => {
   const history = useNavigate();
-  const { equipmentId } = useParams(); // Obtém o ID da URL
+  const { tombo } = useParams(); // Obtém o ID da URL
 
-  const [model, setModel] = useState<IEquipment>({
+  const [model, setModel] = useState<IExemplary>({
     nome: "",
     description: "",
     status: true,
@@ -21,14 +21,14 @@ const Equipment: React.FC = () => {
 
   useEffect(() => {
     // Verifica se é uma edição e carrega os dados do equipamento existente
-    if (equipmentId !== undefined) {
-      findEquipment(equipmentId);
+    if (tombo !== undefined) {
+      findEquipment(tombo);
     }
-  }, [equipmentId]);
+  }, [tombo]);
 
-  async function findEquipment(equipmentId: string) {
+  async function findEquipment(tombo: string) {
     try {
-      const response = await api.get(`/Equipments/${equipmentId}`);
+      const response = await api.get(`/Equipments/${tombo}`);
       const equipmentData = response.data;
       setModel(equipmentData);
     } catch (error) {

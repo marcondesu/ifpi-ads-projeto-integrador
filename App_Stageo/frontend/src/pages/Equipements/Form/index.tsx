@@ -8,7 +8,7 @@ import "./index.css";
 interface IEquipment {
   nome: string;
   description: string;
-  status: boolean;
+  image:string
 }
 
 const Equipment: React.FC = () => {
@@ -18,7 +18,7 @@ const Equipment: React.FC = () => {
   const [model, setModel] = useState<IEquipment>({
     nome: "",
     description: "",
-    status: true,
+    image:"Images/drone-icon.png",
   });
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const Equipment: React.FC = () => {
 
   async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
-
+  
     try {
       if (equipmentId) {
         // Atualiza o equipamento existente
@@ -56,19 +56,50 @@ const Equipment: React.FC = () => {
         console.log(response);
       } else {
         // Adiciona um novo equipamento
-        const response = await api.post("/Equipments", model);
+        const imageUrl = model.image; // A URL fornecida diretamente é usada como a URL real da imagem
+  
+        const newModel = {
+          ...model,
+          image: imageUrl // Atualiza o modelo com a URL real da imagem
+        };
+  
+        const response = await api.post("/Equipments", newModel);
         console.log(response);
       }
-
+  
       history("/Equipments"); // Redireciona para a página de lista de equipamentos
     } catch (error) {
       console.error("Failed to save equipment", error);
     }
   }
+  
+  
+
+  // async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
+  //   e.preventDefault();
+
+  //   try {
+  //     if (equipmentId) {
+  //       // Atualiza o equipamento existente
+  //       const response = await api.put(`/Equipments/${equipmentId}`, model);
+  //       console.log(response);
+  //     } else {
+  //       // Adiciona um novo equipamento
+  //       const response = await api.post("/Equipments", model);
+  //       console.log(response);
+  //     }
+
+  //     history("/Equipments"); // Redireciona para a página de lista de equipamentos
+  //   } catch (error) {
+  //     console.error("Failed to save equipment", error);
+  //   }
+  // }
 
   function back() {
     history("/Equipments");
   }
+
+
 
   return (
     <div className="container">
@@ -103,16 +134,6 @@ const Equipment: React.FC = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <h3>Status</h3>
-            <Form.Check
-              type="checkbox"
-              label="Disponível"
-              name="status"
-              checked={model.status}
-              onChange={updateModel}
-            />
-          </Form.Group>
 
           <Button variant="dark" type="submit">
             Salvar
