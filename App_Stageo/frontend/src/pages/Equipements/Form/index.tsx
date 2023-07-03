@@ -4,7 +4,6 @@ import Form from 'react-bootstrap/Form';
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../../../services/api";
 import "./index.css";
-import axios from "axios";
 
 interface IEquipment {
   nome: string;
@@ -19,7 +18,7 @@ const Equipment: React.FC = () => {
   const [model, setModel] = useState<IEquipment>({
     nome: "",
     description: "",
-    image:"",
+    image:"Images/drone-icon.png",
   });
 
   useEffect(() => {
@@ -49,7 +48,7 @@ const Equipment: React.FC = () => {
 
   async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
-
+  
     try {
       if (equipmentId) {
         // Atualiza o equipamento existente
@@ -57,28 +56,50 @@ const Equipment: React.FC = () => {
         console.log(response);
       } else {
         // Adiciona um novo equipamento
-        const response = await api.post("/Equipments", model);
+        const imageUrl = model.image; // A URL fornecida diretamente é usada como a URL real da imagem
+  
+        const newModel = {
+          ...model,
+          image: imageUrl // Atualiza o modelo com a URL real da imagem
+        };
+  
+        const response = await api.post("/Equipments", newModel);
         console.log(response);
       }
-
+  
       history("/Equipments"); // Redireciona para a página de lista de equipamentos
     } catch (error) {
       console.error("Failed to save equipment", error);
     }
   }
+  
+  
+
+  // async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
+  //   e.preventDefault();
+
+  //   try {
+  //     if (equipmentId) {
+  //       // Atualiza o equipamento existente
+  //       const response = await api.put(`/Equipments/${equipmentId}`, model);
+  //       console.log(response);
+  //     } else {
+  //       // Adiciona um novo equipamento
+  //       const response = await api.post("/Equipments", model);
+  //       console.log(response);
+  //     }
+
+  //     history("/Equipments"); // Redireciona para a página de lista de equipamentos
+  //   } catch (error) {
+  //     console.error("Failed to save equipment", error);
+  //   }
+  // }
 
   function back() {
     history("/Equipments");
   }
 
-  function urlImage(){
-    axios.get("./").then(response => {
-      
-    }).catch(error => {
-      console.error("Failed to load image", error);
-    });
 
-  }
 
   return (
     <div className="container">
@@ -113,16 +134,6 @@ const Equipment: React.FC = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Label>URL da imagem</Form.Label>
-            <Form.Control
-              type="text"
-              name="image"
-              value={model.image}
-              onChange={updateModel}
-            />
-            
-          </Form.Group>
 
           <Button variant="dark" type="submit">
             Salvar

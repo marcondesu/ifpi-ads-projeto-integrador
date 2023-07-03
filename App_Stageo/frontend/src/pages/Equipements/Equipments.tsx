@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import api from "../../services/api";
-import { Badge, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import "./Equipments.css";
 
 interface IEquipment {
   equipmentId: number;
   nome: string;
   description: string;
-  image:string;
+  image: string;
 }
 
 const Equipments: React.FC = () => {
   const [equipments, setEquipments] = useState<IEquipment[]>([]);
   const history = useNavigate();
+
 
   useEffect(() => {
     loadEquipments();
@@ -64,23 +65,18 @@ const Equipments: React.FC = () => {
       <Table striped bordered hover className="text-center">
         <thead>
           <tr>
-            <th>ID</th>
+            {/* <th>ID</th> */}
             <th>Nome</th>
-            {/* <th>Data de criação</th> */}
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
           {equipments.map((equipment) => (
             <tr key={equipment.equipmentId}>
-              <td>{equipment.equipmentId}</td>
+              {/* <td>{equipment.equipmentId}</td> */}
               <td>{equipment.nome}</td>
               <td>
-                <div
-                  className="btn-group"
-                  role="group"
-                  aria-label="Exemplo de botões separados"
-                >
+                <div className="btn-group" role="group" aria-label="Exemplo de botões separados">
                   <Button size="sm" onClick={() => updateEquipment(equipment.equipmentId)}>
                     Editar
                   </Button>{" "}
@@ -99,19 +95,11 @@ const Equipments: React.FC = () => {
                     Remover
                   </Button>{" "}
                 </div>
-                <Button
-                  className="btn-group"
-                  role="group"
-                  aria-label="Exemplo de botões separados"
-                >
-                  
-                </Button>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-      
     </div>
   );
 };
