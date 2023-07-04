@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import api from "../../../services/api";
 import { Badge, Button } from "react-bootstrap";
+import "../Exemplarys/Exemplary.css"
+
 
 interface IExemplary {
   tombo: number;
@@ -15,15 +17,19 @@ const Exemplary: React.FC = () => {
   const [exemplary, setExemplary] = useState<IExemplary[]>([]);
   const history = useNavigate();
 
-
-
+  const location = useLocation();
+  const equipmentId = location.state && location.state.equipmentId;
+  
   useEffect(() => {
-    loadExemplarys();
-  }, []);
+    if (equipmentId) {
+      loadExemplarys();
+    }
+  }, [equipmentId]);
+  
 
   async function loadExemplarys() {
     try {
-      const response = await api.get("/Exemplary");
+      const response = await api.get(`/Exemplary?equipmentId=${equipmentId}`);
       console.log(response);
       setExemplary(response.data);
     } catch (error) {
@@ -39,9 +45,6 @@ const Exemplary: React.FC = () => {
     history(`/Cadastrar_exemplary/${tombo}`, { replace: false });
   }
 
-  function viewExemplary(tombo: number) {
-    history(`/Exemplary/${tombo}`, { replace: false });
-  }
 
   async function reserveExemplay(tombo: number) {
     try {
@@ -70,9 +73,9 @@ const Exemplary: React.FC = () => {
   return (
     <div className="container">
       <br />
-      <div className="equipment-header">
-        <h1>Reservas deste Equipamento</h1>
-        <Button variant="dark" size="sm" onClick={addEexemplary}>
+      <h1>Reservas deste Equipamento</h1>
+      <div className="exemplary-header">
+        <Button  variant="dark" size="sm" onClick={addEexemplary}>
           Cadastrar Reserva
         </Button>
         <Button variant="dark" onClick={back} size="sm">
