@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Equipments {
@@ -11,8 +11,6 @@ export class Equipments {
     @Column()
     description:string;
 
-    @Column()
-    image:string;
  
 }  
 

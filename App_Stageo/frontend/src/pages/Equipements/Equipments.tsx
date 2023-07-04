@@ -9,7 +9,6 @@ interface IEquipment {
   equipmentId: number;
   nome: string;
   description: string;
-  image: string;
 }
 
 const Equipments: React.FC = () => {
@@ -43,6 +42,11 @@ const Equipments: React.FC = () => {
     history(`/Equipments/${equipmentId}`, { replace: false });
   }
 
+  function redirectToExemplaryPage(equipmentId: number) {
+    history(`/Exemplary?equipmentId=${equipmentId}`);
+  }
+  
+
   async function deleteEquipment(equipmentId: number) {
     try {
       await api.delete(`/Equipments/${equipmentId}`);
@@ -68,6 +72,7 @@ const Equipments: React.FC = () => {
             {/* <th>ID</th> */}
             <th>Nome</th>
             <th>Ações</th>
+            <th>Reservas</th>
           </tr>
         </thead>
         <tbody>
@@ -95,6 +100,15 @@ const Equipments: React.FC = () => {
                     Remover
                   </Button>{" "}
                 </div>
+              </td>
+              <td>
+                <Button
+                  size="sm"
+                  variant="primary"
+                  onClick={() => redirectToExemplaryPage(equipment.equipmentId)}
+                >
+                  Exemplares
+                </Button>
               </td>
             </tr>
           ))}

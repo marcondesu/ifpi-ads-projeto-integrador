@@ -8,7 +8,7 @@ import "./index.css";
 interface IEquipment {
   nome: string;
   description: string;
-  image:string
+
 }
 
 const Equipment: React.FC = () => {
@@ -17,8 +17,7 @@ const Equipment: React.FC = () => {
 
   const [model, setModel] = useState<IEquipment>({
     nome: "",
-    description: "",
-    image:"Images/drone-icon.png",
+    description: ""
   });
 
   useEffect(() => {
@@ -56,14 +55,7 @@ const Equipment: React.FC = () => {
         console.log(response);
       } else {
         // Adiciona um novo equipamento
-        const imageUrl = model.image; // A URL fornecida diretamente é usada como a URL real da imagem
-  
-        const newModel = {
-          ...model,
-          image: imageUrl // Atualiza o modelo com a URL real da imagem
-        };
-  
-        const response = await api.post("/Equipments", newModel);
+        const response = await api.post("/Equipments", model);
         console.log(response);
       }
   
@@ -72,6 +64,7 @@ const Equipment: React.FC = () => {
       console.error("Failed to save equipment", error);
     }
   }
+  
   
   
 

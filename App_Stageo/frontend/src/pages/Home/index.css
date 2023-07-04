@@ -8,3 +8,7 @@
 .home-page h1 {
     font-size: 4rem;
 }
+
+.home-page img {
+    width: max-content;
+}

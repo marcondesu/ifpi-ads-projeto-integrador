@@ -7,12 +7,15 @@ import { Badge, Button } from "react-bootstrap";
 interface IExemplary {
   tombo: number;
   nome: string;
+  equipmentId:number;
   status: boolean;
 }
 
 const Exemplary: React.FC = () => {
   const [exemplary, setExemplary] = useState<IExemplary[]>([]);
   const history = useNavigate();
+
+
 
   useEffect(() => {
     loadExemplarys();
@@ -51,6 +54,10 @@ const Exemplary: React.FC = () => {
     }
   }
 
+  function back() {
+    history("/Equipments");
+  }
+
   async function deleteExemplary(tombo: number) {
     try {
       await api.delete(`/Exemplary/${tombo}`);
@@ -64,17 +71,20 @@ const Exemplary: React.FC = () => {
     <div className="container">
       <br />
       <div className="equipment-header">
-        <h1>Lista de Reservas</h1>
+        <h1>Reservas deste Equipamento</h1>
         <Button variant="dark" size="sm" onClick={addEexemplary}>
           Cadastrar Reserva
         </Button>
+        <Button variant="dark" onClick={back} size="sm">
+          Voltar
+        </Button>
+        
       </div>
       <br />
       <Table striped bordered hover className="text-center">
         <thead>
           <tr>
             <th>Tombo</th>
-            <th>Nome</th>
             <th>Status</th>
             {/* <th>Data de criação</th> */}
             <th>Ações</th>
@@ -84,7 +94,6 @@ const Exemplary: React.FC = () => {
           {exemplary.map((exemplary) => (
             <tr key={exemplary.tombo}>
               <td>{exemplary.tombo}</td>
-              <td>{exemplary.nome}</td>
               {/* <td>{exemplary.description}</td> */}
               <td>
                 <Badge bg={exemplary?.status ? "success" : "warning"}>
@@ -108,13 +117,7 @@ const Exemplary: React.FC = () => {
                   >
                     Reservar
                   </Button>{" "}
-                  <Button
-                    size="sm"
-                    variant="info"
-                    onClick={() => viewExemplary(exemplary.tombo)}
-                  >
-                    Visualizar
-                  </Button>{" "}
+                  
                   <Button
                     size="sm"
                     variant="danger"
