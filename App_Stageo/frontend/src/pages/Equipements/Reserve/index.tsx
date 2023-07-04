@@ -3,17 +3,17 @@ import { Button } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../../../services/api";
 
-interface IExemplary {
+interface IReserve {
   nome: string;
   description: string;
   status: boolean;
 }
 
-const Equipment: React.FC = () => {
+const Reserva: React.FC = () => {
   const history = useNavigate();
   const { tombo } = useParams(); // Obtém o ID da URL
 
-  const [model, setModel] = useState<IExemplary>({
+  const [model, setModel] = useState<IReserve>({
     nome: "",
     description: "",
     status: true,
@@ -64,4 +64,4 @@ const Equipment: React.FC = () => {
   );
 };
 
-export default Equipment;
+export default Reserva;

@@ -8,7 +8,6 @@ interface IEquipment {
     equipmentId: number;
     nome: string;
     description: string;
-    image:string
 }
 
 const Detail: React.FC = () => {

@@ -6,12 +6,13 @@ import { Reserve } from "../../Reserve/entity/Reserve";
 @Entity()
 export class Exemplary {
   @PrimaryGeneratedColumn()
-    tombo: number;
-    @ManyToOne(type => Equipments)
-    @JoinColumn({name:"equipmentId"})
+  tombo: number;
+
+  @ManyToOne(() => Equipments)
+  @JoinColumn({ name: "equipmentId" })
     equipments: Equipments;
 
-    @Column()
+  @Column()
     status:boolean;
 
    
